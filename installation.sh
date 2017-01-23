@@ -7,13 +7,6 @@ echo '*                                       *'
 echo '*****************************************'
 
 #-----------------------------------------------
-echo '	- Copie des fichiers'
-
-mkdir $HOME/fichiers
-cp rasp/skyetek $HOME/projetGRDF/skyetek
-cp rasp/script.py $HOME/projetGRDF/script.py
-
-#-----------------------------------------------
 echo '	- Installation du script de démarrage'
 
 sudo sed -i -e "s/exit 0/cd \/home\/pi\/projetGRDF\/\npython \/home\/pi\/projetGRDF\/script.pi\nexit 0/g" /etc/rc.local
