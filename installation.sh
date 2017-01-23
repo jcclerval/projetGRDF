@@ -10,6 +10,7 @@ echo '*****************************************'
 echo '	- Installation du script de démarrage'
 
 sudo sed -i -e "s/exit 0/cd \/home\/pi\/projetGRDF\/\npython \/home\/pi\/projetGRDF\/script.pi\nexit 0/g" /etc/rc.local
+sudo chmod +x /etc/rc.local
 
 #-----------------------------------------------
 echo '	- Installation des modules necessaires'
