@@ -13,7 +13,7 @@ sudo sed -i -e "s/exit 0/cd \/home\/pi\/projetGRDF\/\npython \/home\/pi\/projetG
 
 #-----------------------------------------------
 echo '	- Installation des modules necessaires'
-sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y mosquitto python-pip python-mysqldb
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y mosquitto python-pip python-mysqldb
 
 pip install paho-mqtt
 
