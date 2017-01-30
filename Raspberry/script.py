@@ -38,19 +38,19 @@ Liste des fonctions utiles :
 
 """
 def read():
-    try:
-        proc = Popen(["./example"],stdout=PIPE)
-        proc.wait()
-        recep = proc.stdout.readline()
-        print "Recep :", recep
-        if recep == "Segmentation fault\n":
-            print "Segmentation fault"
-            return read()
-        elif recep != "NTR\n":
-            print recep.split('\n')[0]
-            return recep.split('\n')[0]
-    except:
-        return ''
+#    try:
+    proc = Popen(["./example"],stdout=PIPE)
+    proc.wait()
+    recep = proc.stdout.readline()
+    print "Recep :", recep
+    if recep == "Segmentation fault\n":
+        print "Segmentation fault"
+        return read()
+    elif recep != "NTR\n":
+        print recep.split('\n')[0]
+        return recep.split('\n')[0]
+#    except:
+#        return ''
         
 def scan(l):
     print "Nombre d'itération",l
@@ -79,7 +79,7 @@ def publish(camionId, data):
     
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"
-time.sleep(10)
+time.sleep(1)
 
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
 os.chdir("/home/pi/projetGRDF")
