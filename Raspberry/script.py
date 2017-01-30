@@ -39,7 +39,7 @@ Liste des fonctions utiles :
 """
 def read():
     try:
-        proc = Popen(["./skeytek"],stdout=PIPE)
+        proc = Popen(["./example"],stdout=PIPE)
         proc.wait()
         recep = proc.stdout.readline()
         print "Recep :", recep
