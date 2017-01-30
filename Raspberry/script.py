@@ -83,7 +83,7 @@ print "Initialisation du script"
 time.sleep(1)
 
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
-os.chdir("/home/pi/projetGRDF")
+#os.chdir("/home/pi/projetGRDF")
 try:
     proces = Process(target=lambda : scan(nbIteration))
     proces.start()
