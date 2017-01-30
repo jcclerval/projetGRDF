@@ -39,6 +39,7 @@ Liste des fonctions utiles :
 """
 def read():
 #    try:
+    Popen(['pwd'], stdout=sys.stdout)
     proc = Popen(["./example"],stdout=PIPE)
     proc.wait()
     recep = proc.stdout.readline()
