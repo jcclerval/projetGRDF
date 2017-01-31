@@ -69,7 +69,7 @@ def fetchData(camion, etiId):
         cur = con.cursor()
         cur.execute("SELECT type FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
         temp = cur.fetchone()
-        print temp[1]
+        print temp
     except mdb.Error, e:
       
         print "Error %d: %s" % (e.args[0],e.args[1])
@@ -79,7 +79,7 @@ def fetchData(camion, etiId):
         if con:    
             con.close()
     try:        
-        return temp[0]  # On renvoie l'id de l'outil concerné
+        return temp  # On renvoie l'id de l'outil concerné
     except:
         pass
     return 0
