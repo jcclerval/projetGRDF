@@ -117,12 +117,14 @@ def updateData(camion, data):
             if qte == None:
                 print "None, on passe à un"
                 qte = 1
+                cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1);".format(camion=camion, outil = data))
+                print "Element ajouté"
             else:
                 print "il y avait déjà quelque chose avant"
                 qte = int(qte)
                 qte += 1
-            cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
-            print "Element ajouté"
+                cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
+                print "Element ajouté"
         except:
             pass
     except mdb.Error, e:
