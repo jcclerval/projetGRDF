@@ -35,7 +35,10 @@ Liste des fonctions utiles :
     updateData().
 
 - updateData(camion, data):
-    Met à jour la BDD.
+    Met à jour la BDD
+
+- cleanDataBase():
+    Nettoie la base de données des doublons
 """
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
@@ -48,19 +51,24 @@ def on_message(client, userdata, msg):
         print "delete content"
         deleteContent(msg.topic.split('/')[-1])                                # On supprime tout
         return 0
-    fetchData(msg.topic.split('/')[-1], str(msg.payload))                      # Sinon on envoie l'information
+    data = fetchData(msg.topic.split('/')[-1], str(msg.payload))               # Sinon on envoie l'information
+    updateData(camion, data)                                                   # On met à jour la BDD avec les infos recues
+    # Suppression des doublons
+#    cleanDataBase()
     return 0
     # Mise à jour de la base de donnees
 def fetchData(camion, etiId):
     # Ici on va chercher les informations sur l'étiquette afin de l'ajouter dans les effectifs du camion
+    # On fait une recherche dans la base de données des étiquettes afin de savoir le type
+    # d'outil de l'objet scanné
     con = False
     try:
         print "Etiquette :", etiId
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
-        cur.execute("SELECT id FROM outils WHERE ref='{ref}';".format(ref=str(etiId)))
+        cur.execute("SELECT id FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
         temp = cur.fetchone()
-        print temp[0]
+        print temp[1]
     except mdb.Error, e:
       
         print "Error %d: %s" % (e.args[0],e.args[1])
@@ -70,7 +78,7 @@ def fetchData(camion, etiId):
         if con:    
             con.close()
     try:        
-        updateData(camion, temp[0])
+        return temp[0]  # On renvoie l'id de l'outil concerné
     except:
         pass
     return 0
@@ -93,13 +101,23 @@ def deleteContent(camionId):
             con.close()
     return 0
 def updateData(camion, data):
+    # On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
+    # la liste des effectifs du camion.
     print "Data :",data
     con = False
     try:
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         try:
-            cur.execute("INSERT INTO effectifs VALUES({data0}, {data1}, '{data2}', {data3});".format(data0 = str('NULL'), data1 = int(camion), data2 = str(data), data3 = int(1)))
+            cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
+            qte = cur.fetchone()
+            print qte
+            if qte == '':
+                qte = 0
+            else:
+                qte = int(qte)
+                qte += 1
+            cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
             print "Element ajouté"
         except:
             pass
@@ -110,6 +128,31 @@ def updateData(camion, data):
         if con:    
             con.close()
     return 0
+    
+    """
+def cleanDataBase():
+    con = False
+    try:
+        con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
+        cur = con.cursor()
+        try:
+            cur.execute("SELECT * FROM effectifs WHERE idcamion={camion};".format(camion=camion))
+            listOutils = cur.fetchone()
+            outilsDic = {}
+            for outils in listOutils:
+                if outils in outilsDic:
+                    outilsDic[outils] += 1
+                else:
+                    outilsDic[outils] = 0
+            
+    except mdb.Error, e:
+        print "Error %d: %s" % (e.args[0],e.args[1])
+        sys.exit(1)
+    finally:    
+        if con:    
+            con.close()
+    return 0
+    """
   
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"
