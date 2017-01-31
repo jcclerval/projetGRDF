@@ -121,7 +121,7 @@ def updateData(camion, data):
                 print "Element ajouté"
             else:
                 print "il y avait déjà quelque chose avant"
-                qte = int(qte)
+                qte = int(qte[0])
                 qte += 1
                 cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
                 print "Element ajouté"
