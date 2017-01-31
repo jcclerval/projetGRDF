@@ -14,7 +14,7 @@ import paho.mqtt.client as mosquitto
 import sys
 import time
 ## Définition des variables ---------------------------------------------------
-serverName = "bord3l"
+serverName = "192.168.43.231"
 serverPort = 1883
 camionId = 30
 nbIteration = 100
