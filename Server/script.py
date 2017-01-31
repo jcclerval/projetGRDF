@@ -37,9 +37,6 @@ Liste des fonctions utiles :
 
 - updateData(camion, data):
     Met à jour la BDD
-
-- cleanDataBase():
-    Nettoie la base de données des doublons
 """
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
@@ -47,9 +44,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     # A la reception d'un message ...
-    print "Topic: ", msg.topic+'\nMessage: '+str(msg.payload)                  # On affiche le message
+#    print "Topic: ", msg.topic+'\nMessage: '+str(msg.payload)                  # On affiche le message
     if str(msg.payload) == "delete":                                           # Si le message contient la commande "delete"
-        print "delete content"
+#        print "delete content"
         deleteContent(msg.topic.split('/')[-1])                                # On supprime tout
         return 0
     camion = msg.topic.split('/')[-1]
@@ -65,7 +62,7 @@ def fetchData(camion, etiId):
     # d'outil de l'objet scanné
     con = False
     try:
-        print "Etiquette :", etiId
+#        print "Etiquette :", etiId
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         cur.execute("SELECT type FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
@@ -92,7 +89,6 @@ def deleteContent(camionId):
         cur = con.cursor()
         try:
             cur.execute("DELETE FROM effectifs WHERE idcamion={camionId};".format(camionId=camionId))
-            print "Ancien contenu supprimé"
         except:
             pass
     except mdb.Error, e:
@@ -105,7 +101,7 @@ def deleteContent(camionId):
 def updateData(camion, data):
     # On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
     # la liste des effectifs du camion.
-    print "Data :",data
+#    print "Data :",data
     con = False
     try:
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
@@ -115,16 +111,12 @@ def updateData(camion, data):
             qte = cur.fetchone()
             print qte
             if qte == None:
-                print "None, on passe à un"
                 qte = 1
                 cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1);".format(camion=camion, outil = data))
-                print "Element ajouté"
             else:
-                print "il y avait déjà quelque chose avant"
                 qte = int(qte[0])
                 qte += 1
                 cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
-                print "Element ajouté"
         except:
             pass
     except mdb.Error, e:
@@ -135,30 +127,6 @@ def updateData(camion, data):
             con.close()
     return 0
     
-    """
-def cleanDataBase():
-    con = False
-    try:
-        con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
-        cur = con.cursor()
-        try:
-            cur.execute("SELECT * FROM effectifs WHERE idcamion={camion};".format(camion=camion))
-            listOutils = cur.fetchone()
-            outilsDic = {}
-            for outils in listOutils:
-                if outils in outilsDic:
-                    outilsDic[outils] += 1
-                else:
-                    outilsDic[outils] = 0
-            
-    except mdb.Error, e:
-        print "Error %d: %s" % (e.args[0],e.args[1])
-        sys.exit(1)
-    finally:    
-        if con:    
-            con.close()
-    return 0
-    """
   
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"

@@ -36,6 +36,4 @@ echo 'Programme compilé'
 
 echo '********** Installation terminée **********'
 
-cd ../../../
-rm -r projetGRDF
 exit 0
