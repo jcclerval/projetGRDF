@@ -17,7 +17,7 @@ import time
 serverName = "bord3l"
 serverPort = 1883
 camionId = 30
-nbIteration = 12
+nbIteration = 30
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS UTILES ----------------------------------------------------------
@@ -42,7 +42,6 @@ def read():
     proc = Popen(["./example"],stdout=PIPE)
     proc.wait()
     recep = proc.stdout.readline()
-    print "Recep :", recep
     if recep == "Segmentation fault\n":
         print "Segmentation fault"
         return read()
