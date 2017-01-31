@@ -16,7 +16,7 @@ import time
 ## Définition des variables ---------------------------------------------------
 serverName = "bord3l"
 serverPort = 1883
-camionId = 30
+camionId = 26
 nbIteration = 30
 ## ----------------------------------------------------------------------------
 
