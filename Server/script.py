@@ -114,7 +114,7 @@ def updateData(camion, data):
             cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
             qte = cur.fetchone()
             print qte
-            if qte == '':
+            if qte == None:
                 qte = 0
             else:
                 qte = int(qte)
