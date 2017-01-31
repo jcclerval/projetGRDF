@@ -16,7 +16,7 @@ echo 'Fichiers copiés'
 #-----------------------------------------------
 echo '	- Installation du script de démarrage'
 
-sudo sed -i -e "s/exit 0/cd \/home\/pi\/projetGRDF\/\npython \/home\/pi\/projetGRDF\/script.pi\nexit 0/g" /etc/rc.local
+sudo sed -i -e "s/exit 0/cd \/home\/pi\/projetGRDF\/\npython \/home\/pi\/raspberry\/script.py\nexit 0/g" /etc/rc.local
 sudo chmod +x /etc/rc.local
 echo 'Script de démarrage configuré'
 
