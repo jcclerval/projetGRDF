@@ -62,7 +62,7 @@ def fetchData(camion, etiId):
     # d'outil de l'objet scanné
     con = False
     try:
-#        print "Etiquette :", etiId
+        print "Etiquette :", etiId
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         cur.execute("SELECT idoutil FROM etiquettes WHERE etiquette='{ref}';".format(ref=str(etiId)))
