@@ -65,7 +65,7 @@ def fetchData(camion, etiId):
 #        print "Etiquette :", etiId
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
-        cur.execute("SELECT type FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
+        cur.execute("SELECT outil FROM etiquettes WHERE etiquette='{ref}';".format(ref=str(etiId)))
         temp = cur.fetchone()
         print temp[0]
     except mdb.Error, e:
