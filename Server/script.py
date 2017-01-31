@@ -115,8 +115,10 @@ def updateData(camion, data):
             qte = cur.fetchone()
             print qte
             if qte == None:
+                print "None, on passe à zero"
                 qte = 0
             else:
+                print "il y avait déjà quelque chose avant"
                 qte = int(qte)
                 qte += 1
             cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
