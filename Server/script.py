@@ -11,6 +11,7 @@ import MySQLdb as mdb
 import paho.mqtt.client as mqtt
 import sys
 import time
+import os
 ## Définition des variables ---------------------------------------------------
 serverName = "bord3l"
 serverPort = 1883
@@ -66,7 +67,7 @@ def fetchData(camion, etiId):
         print "Etiquette :", etiId
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
-        cur.execute("SELECT id FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
+        cur.execute("SELECT type FROM etiquettes WHERE ref='{ref}';".format(ref=str(etiId)))
         temp = cur.fetchone()
         print temp[1]
     except mdb.Error, e:
