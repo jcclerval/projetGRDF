@@ -115,8 +115,8 @@ def updateData(camion, data):
             qte = cur.fetchone()
             print qte
             if qte == None:
-                print "None, on passe à zero"
-                qte = 0
+                print "None, on passe à un"
+                qte = 1
             else:
                 print "il y avait déjà quelque chose avant"
                 qte = int(qte)
