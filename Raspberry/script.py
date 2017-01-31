@@ -17,7 +17,7 @@ import time
 serverName = "bord3l"
 serverPort = 1883
 camionId = 30
-nbIteration = 5
+nbIteration = 12
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS UTILES ----------------------------------------------------------
