@@ -22,7 +22,7 @@ echo 'Script de démarrage configuré'
 
 #-----------------------------------------------
 echo '	- Installation des modules necessaires'
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y mosquitto python-pip python-mysqldb
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y mosquitto python-pip python-mysqldb libusb-dev
 
 pip install paho-mqtt
 echo 'Modules installés'
