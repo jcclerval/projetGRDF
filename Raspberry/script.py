@@ -75,7 +75,7 @@ def scan(l, errorCount = 0):
                 proc.terminate()
                 return 0
             else:
-                scan(l, errorCount + 1)
+                return scan(l, errorCount + 1)
             
         if recep == "end\n": #or j > 4*l+1:
             break
