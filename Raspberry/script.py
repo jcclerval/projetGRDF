@@ -13,11 +13,12 @@ import os
 #import paho.mqtt.client as mosquitto
 import sys
 import time
+import io
 ## Définition des variables ---------------------------------------------------
 serverName = "192.168.43.231"
 serverPort = 1883
 camionId = 30
-nbIteration = 10000
+nbIteration = 20
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS UTILES ----------------------------------------------------------
@@ -42,35 +43,39 @@ def read():
     
     recep = proc.stdout.readline()
     if recep == "Segmentation fault\n":
-        print "Segmentation fault"
+        print("Segmentation fault")
         return read()
     elif recep != "NTR\n":
-        print recep.split('\n')[0]
+        print(recep.split('\n')[0])
         return recep.split('\n')[0]
 #    except:
 #        return ''
         
 def scan(l):
-    print "Nombre d'itération",l
+    print("Nombre d'itération",l)
     temp = []
     
-    proc = Popen(["./scan", str(l)],stdout=PIPE)
+    proc = Popen(["./scan", str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
 
-    print "Débug1"
+    #print "Débug1"
     j = 0 # To be deleted
     while True:
         j += 1 # To be deleted
 #        out, err = proc.communicate()
 #        print out.splitlines()
+
         recep = proc.stdout.readline()
-        print j, recep
+        
         if recep == "end\n" : #or j > 4*l+1:
             break
         
+        recep = recep.rstrip('\n')
+        #print(j, recep)
         if recep != None and recep != '' and recep not in temp:
             temp.append(recep)                                                   # On ajoute la valeur de l'étiquette si elle est non nulle
+    
     proc.wait()
-    print temp
+    print(temp)
     
     return 0    
 """
@@ -86,13 +91,13 @@ def publish(camionId, data):
     mqttc.connect(serverName, serverPort)
     
     for element in data:
-        print "Publié :", element
+        print("Publié :", element)
         mqttc.publish("etudeje/"+str(camionId), element)
         mqttc.loop(2)
     return 0
     
 ### INITIALISATION DU SCRIPT --------------------------------------------------
-print "Initialisation du script"
+print("Initialisation du script")
 time.sleep(1)
 
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
@@ -102,13 +107,13 @@ try:
     proces.start()
     proces.join()
 except KeyboardInterrupt:
-    print '\nInterrupted'
+    print('\nInterrupted')
     try:
         for child in active_children():
-            print child
+            print(child)
             child.terminate()
         sys.exit(0)
     except SystemExit:
         os._exit(0)
-print "terminé"
+print("terminé")
 ### FIN DU SCRIPT -------------------------------------------------------------
