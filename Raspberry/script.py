@@ -67,16 +67,17 @@ def scan(l, errorCount = 0):
 #        print out.splitlines()
 
         recep = proc.stdout.readline()
-        
-        if recep == "Segmentation fault\n":
-            print("Segmentation fault , error count  = {count}", count = errorCount)
-            if errorCount > timeout:
+        print(recep)        
+        if recep == "Segmentation fault\n" or recep == '' or recep == " ":
+            print("Segmentation fault , error count  = {count}".format(count = errorCount))
+            if errorCount + 1 > timeout:
                 print("Timeout reached")
-                break
+                proc.terminate()
+                return 0
             else:
                 scan(l, errorCount + 1)
             
-        if recep == "end\n" : #or j > 4*l+1:
+        if recep == "end\n": #or j > 4*l+1:
             break
         
         recep = recep.rstrip('\n')
