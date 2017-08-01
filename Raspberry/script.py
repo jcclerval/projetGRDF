@@ -19,6 +19,7 @@ serverName = "192.168.43.231"
 serverPort = 1883
 camionId = 30
 nbIteration = 20
+timeout = 10
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS UTILES ----------------------------------------------------------
@@ -38,12 +39,13 @@ Liste des fonctions utiles :
     etudeje/camionId avec comme valeur l'identifiant de l'étiquette.
 
 """
-def read():
+def read(errorCount=0):
 #    try:
     
     recep = proc.stdout.readline()
     if recep == "Segmentation fault\n":
         print("Segmentation fault")
+        errorCount += 1
         return read()
     elif recep != "NTR\n":
         print(recep.split('\n')[0])
@@ -51,7 +53,7 @@ def read():
 #    except:
 #        return ''
         
-def scan(l):
+def scan(l, errorCount = 0):
     print("Nombre d'itération",l)
     temp = []
     
@@ -66,6 +68,14 @@ def scan(l):
 
         recep = proc.stdout.readline()
         
+        if recep == "Segmentation fault\n":
+            print("Segmentation fault , error count  = {count}", count = errorCount)
+            if errorCount > timeout:
+                print("Timeout reached")
+                break
+            else:
+                scan(l, errorCount + 1)
+            
         if recep == "end\n" : #or j > 4*l+1:
             break
         
