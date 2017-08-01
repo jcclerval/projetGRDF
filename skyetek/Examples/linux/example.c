@@ -15,7 +15,21 @@ int main(int argc, char* argv[])
 	int numReaders = 0;
 	const int delay = 400000;  	//wait at least 400ms after closing the interface before re-opening (USB enumeration)
 	const int tests = 3; 		//number of open/close tests to perform
-	const int iterations = 100; 	//number of select tag operations to perform for each test
+
+	//int* etiquettes = NULL;
+	int nombreEtiquettes = NULL;
+	if( argc == 2 ) {
+        //printf("%s\n", argv[1]);
+        nombreEtiquettes = atoi(argv[1]);
+    }
+    else {
+        //printf("Nothing\n");
+        nombreEtiquettes = 100;
+    }
+    //etiquettes = (int*)malloc(nombreEtiquettes * sizeof(int));
+
+	//const int iterations = 100; 	//number of select tag operations to perform for each test
+
 	int failures = 0;
 	int total = 0;
 
@@ -24,23 +38,34 @@ int main(int argc, char* argv[])
     //printf("Reader Found: %s-%s-%s\n", readers[0]->manufacturer, readers[0]->model, readers[0]->firmware);
 
     status = SkyeTek_GetTags(readers[0], AUTO_DETECT, &tags, &count);
-    if(status == SKYETEK_SUCCESS)
+
+    //printf("Iterations à venir : %d\n", nombreEtiquettes);
+
+
+    for(int i = 0; i < nombreEtiquettes; i++)
     {
-        if(count == 0)
+        //printf("Iteration %d\n", i);
+        if(status == SKYETEK_SUCCESS)
         {
-            printf("NTR\n");
+            if(count != 0)
+            //{
+            //    printf("NTR\n");
+            //}
+            //else
+            {
+                for(int j = 0; j < count; j++)
+                {
+                    printf("%s\n", tags[j]->friendly);
+                }
+            }
         }
         else
         {
-            for(int j = 0; j < count; j++)
-            {
-                printf("%s\n", tags[j]->friendly);
-            }
+            printf("ERROR: GetTags failed");
         }
     }
-    else
-    {
-        printf("ERROR: GetTags failed");
-    }
+    printf("end\n");
     SkyeTek_FreeTags(readers[0],tags,count);
+
+    //free(etiquettes);
 }

@@ -15,7 +15,7 @@ VPATH  = ..
 INCLUDE  = -I../../SkyeTekAPI
 LIBS = -L../../SkyeTekAPI/unix -lstapi
 CFLAGS = -g -O0 -Wall -DDEBUG 
-EXE = example
+EXE = ../../../Raspberry/scan
 OBJS += example.o
 
 OS = $(shell uname -s)

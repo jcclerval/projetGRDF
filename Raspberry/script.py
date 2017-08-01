@@ -10,14 +10,14 @@ Created on Sat Dec  3 12:35:20 2016
 from subprocess import Popen, PIPE
 from multiprocessing import Process, active_children
 import os
-import paho.mqtt.client as mosquitto
+#import paho.mqtt.client as mosquitto
 import sys
 import time
 ## Définition des variables ---------------------------------------------------
 serverName = "192.168.43.231"
 serverPort = 1883
 camionId = 30
-nbIteration = 100
+nbIteration = 10000
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS UTILES ----------------------------------------------------------
@@ -39,8 +39,7 @@ Liste des fonctions utiles :
 """
 def read():
 #    try:
-    proc = Popen(["./example"],stdout=PIPE)
-    proc.wait()
+    
     recep = proc.stdout.readline()
     if recep == "Segmentation fault\n":
         print "Segmentation fault"
@@ -54,17 +53,33 @@ def read():
 def scan(l):
     print "Nombre d'itération",l
     temp = []
-    for i in range(0,l):
-        print "Tour ",i
-        red = read()
-        if red != None and red != '':
-            temp.append(red)                                                   # On ajoute la valeur de l'étiquette si elle est non nulle
-    temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
+    
+    proc = Popen(["./scan", str(l)],stdout=PIPE)
+
+    print "Débug1"
+    j = 0 # To be deleted
+    while True:
+        j += 1 # To be deleted
+#        out, err = proc.communicate()
+#        print out.splitlines()
+        recep = proc.stdout.readline()
+        print j, recep
+        if recep == "end\n" : #or j > 4*l+1:
+            break
+        
+        if recep != None and recep != '' and recep not in temp:
+            temp.append(recep)                                                   # On ajoute la valeur de l'étiquette si elle est non nulle
+    proc.wait()
+    print temp
+    
+    return 0    
+"""
     if temp != []:
         publish(camionId, ["delete"])                                          # On supprime le contenu
         publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
-    return 0
     
+    return 0
+"""    
 def publish(camionId, data):
     # Connexion au broker mqtt
     mqttc = mosquitto.Client()
