@@ -24,27 +24,29 @@ int main(int argc, char* argv[])
     numDevices = SkyeTek_DiscoverDevices(&devices);
     SkyeTek_DiscoverReaders(devices,numDevices,&readers);
 
-
-    for(int i = 0; i < nombreIterations; i++)
+    if((numDevices = SkyeTek_DiscoverDevices(&devices)) > 0)
     {
-        status = SkyeTek_GetTags(readers[0], AUTO_DETECT, &tags, &count);
-
-        if(status == SKYETEK_SUCCESS)
+        for(int i = 0; i < nombreIterations; i++)
         {
-            if(count != 0)
+            status = SkyeTek_GetTags(readers[0], AUTO_DETECT, &tags, &count);
+
+            if(status == SKYETEK_SUCCESS)
             {
-                for(int j = 0; j < count; j++)
+                if(count != 0)
                 {
-                    printf("%s\n", tags[j]->friendly);
+                    for(int j = 0; j < count; j++)
+                    {
+                        printf("%s\n", tags[j]->friendly);
+                    }
                 }
             }
-        }
-        else            //{
-            //    printf("NTR\n");
-            //}
-            //else
-        {
-            printf("ERROR: GetTags failed");
+            else            //{
+                //    printf("NTR\n");
+                //}
+                //else
+            {
+                printf("ERROR: GetTags failed");
+            }
         }
     }
     printf("end\n");
