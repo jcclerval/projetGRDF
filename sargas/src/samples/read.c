@@ -349,7 +349,7 @@ if (TMR_ERROR_TAG_ID_BUFFER_FULL == ret)
 #endif
     
     //printf("EPC:%s ant:%d count:%d Time:%s\n", epcStr, trd.antenna, trd.readCount, timeStr);
-    printf(epcStr\n);
+    printf("%s\n", epcStr);
 #endif
   }
 
