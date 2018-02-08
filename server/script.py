@@ -112,14 +112,14 @@ def deleteContent(camionId):
     
 
 def updateData(camion, data):
-    # On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
-    # la liste des effectifs du camion.
-#    print "Data :",data
-    con = False
-    try:
-        con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
-        cur = con.cursor()
-        try:
+	# On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
+	# la liste des effectifs du camion.
+	print "Data :",data
+	con = False
+	try:
+		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
+		cur = con.cursor()
+		try:
 			for etiquettes in data:
 				print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes)
 				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
