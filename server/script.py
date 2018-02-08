@@ -135,9 +135,9 @@ def updateData(camion, data):
 					qte += 1
 					cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
 				"""
-        except:
+		except:
 			print 'error'
-            pass
+			pass
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
         sys.exit(1)
