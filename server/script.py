@@ -121,6 +121,7 @@ def updateData(camion, data):
         cur = con.cursor()
         try:
 			for etiquettes in data:
+				print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes)
 				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
 				"""
 				cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
@@ -135,6 +136,7 @@ def updateData(camion, data):
 					cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
 				"""
         except:
+			print 'error'
             pass
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0],e.args[1])
