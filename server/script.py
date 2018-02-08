@@ -13,7 +13,7 @@ import sys
 import time
 import os
 ## Définition des variables ---------------------------------------------------
-serverName = "192.168.43.231"
+serverName = "192.168.1.23"
 serverPort = 1883
 
 bdd = 'grdf'
