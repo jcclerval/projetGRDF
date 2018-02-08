@@ -120,9 +120,8 @@ def updateData(camion, data):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
-			for etiquettes in data:
-				print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes)
-				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
+			print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = data[:suffix], idetiquette=data)
+			cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
 			print 'error'
 			pass
