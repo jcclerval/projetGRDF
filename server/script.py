@@ -57,7 +57,9 @@ def on_message(client, userdata, msg):
         deleteContent(msg.topic.split('/')[-1])                                # On supprime tout le contenu du camion
         return 0
     camion = msg.topic.split('/')[-2]											# On récupère l'Id du camion
-    data = fetchData(camion, str(msg.payload))               # Sinon on envoie l'information
+    
+    #data = fetchData(camion, str(msg.payload))               # Sinon on envoie l'information
+    data = str(msg.payload)
     updateData(camion, data)                                                   # On met à jour la BDD avec les infos recues
     # Suppression des doublons
 #    cleanDataBase()
