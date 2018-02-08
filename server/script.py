@@ -123,18 +123,6 @@ def updateData(camion, data):
 			for etiquettes in data:
 				print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes)
 				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
-				"""
-				cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
-				qte = cur.fetchone()
-				print qte
-				if qte == None:
-					qte = 1
-					cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1);".format(camion=camion, outil = data))
-				else:
-					qte = int(qte[0])
-					qte += 1
-					cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
-				"""
 		except:
 			print 'error'
 			pass
