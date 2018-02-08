@@ -86,8 +86,48 @@ ifneq ($(PLATFORM),EMBEDDED)
 PROGS += demo
 endif
 
+#PROGS += filter
+#PROGS += firmwareload
+#PROGS += locktag
+#PROGS += multireadasync
 PROGS += read
-
+#PROGS += readasync
+#PROGS += readintoarray
+#PROGS += blockpermalock
+#PROGS += blockwrite
+#PROGS += embeddedreadtid
+#PROGS += licensekey
+#PROGS += multiprotocolread
+#PROGS += savedconfig
+#PROGS += writetag
+#PROGS += readasynctrack
+#PROGS += readasyncfilter
+#PROGS += readasyncfilter-ISO18k-6b
+#PROGS += serialtime
+#PROGS += tagdir
+#PROGS += fastid
+#PROGS += denatranIAVcustomtagoperations
+#PROGS += readerstats
+#PROGS += readerInfo
+#PROGS += antennalist
+#PROGS += securereaddata
+#PROGS += readstopTrigger
+#PROGS += rebootReader
+#PROGS += readasyncGPIOControl
+#PROGS += readcustomtransport
+#PROGS += savedreadplanconfig
+#PROGS += loadsaveconfiguration
+#PROGS += bap
+#PROGS += readallmembanks-GEN2
+#PROGS += gpiocommands
+#PROGS += SL900Agetcalibrationdata
+#PROGS += SL900Agetsensorvalue
+#PROGS += SL900Asetcalibrationdata
+#PROGS += SL900Asetsfeparameters
+#PROGS += authenticate
+#PROGS += readbuffer
+#PROGS += untraceable
+#PROGS += autonomousmode
 endif
 
 ifneq ($(TMR_ENABLE_SERIAL_READER_ONLY), 1)
