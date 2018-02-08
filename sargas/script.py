@@ -15,6 +15,7 @@ import sys
 import time
 ## Définition des variables ---------------------------------------------------
 serverName = "192.168.1.23"
+#serverName = "jcsgrdf.ddns.net"
 serverPort = 1883
 camionId = 30
 tpsIteration = 5
