@@ -17,7 +17,7 @@ import time
 serverName = "192.168.43.231"
 serverPort = 1883
 camionId = 30
-nbIteration = 100
+tpsIteration = 50
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -48,11 +48,17 @@ def scan(l):
     temp = []
     ## mettre a jour avec Sargas
     
+    proc = Popen(["./src/api/read", "tmr://localhost" "--ant", "1"],stdout=PIPE, bufsize=1, universal_newlines=True )
+    temp = proc.stdout.readline()
+    print temp
     print 'Scan terminé, envoie des informations sur le brooker MQTT'
+    return 0
+    """
     temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
     if temp != []:
         publish(camionId, ["delete"])                                          # On supprime le contenu
         publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
+    """
     return 0
   
   
@@ -90,7 +96,7 @@ print 'Lancement du scan'
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
 #os.chdir("/home/pi/projetGRDF")
 try:
-    proces = Process(target=lambda : scan(nbIteration))
+    proces = Process(target=lambda : scan(tpsIteration))
     proces.start()
     proces.join()
 except KeyboardInterrupt:

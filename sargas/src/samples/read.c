@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
   {
     usage(); 
   }
-
+// gestion des arguments
   for (i = 2; i < argc; i+=2)
   {
     if(0x00 == strcmp("--ant", argv[i]))
@@ -158,7 +158,11 @@ int main(int argc, char *argv[])
   antennaList = buffer;
   antennaCount = 0x01;
 #endif
-	
+/*
+ * Creation du l'Antenne
+ * 
+ * 
+ */	
 #ifndef BARE_METAL
   checkerr(rp, ret, 1, "creating reader");
 
@@ -188,7 +192,14 @@ int main(int argc, char *argv[])
 #ifndef BARE_METAL
   checkerr(rp, ret, 1, "getting region");
 #endif
-  
+
+/* Gestion des régions
+ * 
+ * 
+ * 
+ * 
+ */
+ 
   if (TMR_REGION_NONE == region)
   {
     TMR_RegionList regions;
@@ -212,7 +223,12 @@ int main(int argc, char *argv[])
 	checkerr(rp, ret, 1, "setting region");  
 #endif 
   }
-
+/** Gestion des antennes
+ * 
+ * 
+ * 
+ **/
+ 
   model.value = str;
   model.max = 64;
   TMR_paramGet(rp, TMR_PARAM_VERSION_MODEL, &model);
@@ -243,7 +259,14 @@ int main(int argc, char *argv[])
 #ifndef BARE_METAL
   checkerr(rp, ret, 1, "setting read plan");
 #endif
-  ret = TMR_read(rp, 500, NULL);
+  ret = TMR_read(rp, 5000, NULL); 
+  /**
+   * C'est ici (au dessus que ca se passe, ici on scan pendant 500ms et on regarde combien de tags on a
+   * 
+   * 
+   * --> mettre le temps souhaité ici, dépendra de la facilité à trouver les tags
+   * 
+   **/
   
 #ifndef BARE_METAL
 if (TMR_ERROR_TAG_ID_BUFFER_FULL == ret)
@@ -270,6 +293,13 @@ if (TMR_ERROR_TAG_ID_BUFFER_FULL == ret)
 #endif
     TMR_bytesToHex(trd.tag.epc, trd.tag.epcByteCount, epcStr);
 
+/**
+ * Traitement à proprement parler
+ * 
+ * 
+ **/
+ 
+ 
 #ifndef BARE_METAL
 #ifdef WIN32
 	{
@@ -319,6 +349,7 @@ if (TMR_ERROR_TAG_ID_BUFFER_FULL == ret)
 #endif
     
     printf("EPC:%s ant:%d count:%d Time:%s\n", epcStr, trd.antenna, trd.readCount, timeStr);
+    // printf(epcStr);
 #endif
   }
 

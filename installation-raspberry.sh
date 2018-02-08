@@ -8,7 +8,7 @@ echo '*****************************************'
 
 #-----------------------------------------------
 echo '	- Copie des fichiers'
-mkdir $HOME/raspberry
+mkdir $HOME/sargas
 cp Raspberry/script.py $HOME/raspberry/script.py
 sudo cp skyetek/Examples/linux/85-skyemodule.rules /etc/udev/rules.d
 echo 'Fichiers copiés'
@@ -19,7 +19,7 @@ echo '	- Installation du script de démarrage'
 
 # Lanceur de clé 3g
 sudo sed -i -e "s/exit 0/wvdial \&\nsleep 10 \nexit 0/g" /etc/rc.local
-sudo sed -i -e "s/exit 0/cd \/home\/pi\/raspberry\/\npython \/home\/pi\/raspberry\/script.py \& \nexit 0/g" /etc/rc.local
+sudo sed -i -e "s/exit 0/cd \/home\/debian\/raspberry\/\npython \/home\/pi\/raspberry\/script.py \& \nexit 0/g" /etc/rc.local
 sudo chmod +x /etc/rc.local
 echo 'Script de démarrage configuré'
 
