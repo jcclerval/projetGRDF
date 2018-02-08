@@ -121,7 +121,7 @@ def updateData(camion, data):
         cur = con.cursor()
         try:
 			for etiquettes in data:
-				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette}, 1);".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
+				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
 				"""
 				cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
 				qte = cur.fetchone()
