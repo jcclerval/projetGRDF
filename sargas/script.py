@@ -17,7 +17,7 @@ import time
 serverName = "192.168.1.23"
 serverPort = 1883
 camionId = 30
-tpsIteration = 50
+tpsIteration = 5
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -45,14 +45,13 @@ Stratégie :
 def scan(l):
 	print 'Début du scan'
 	print "Temps du scan en secondes ",l
-    temp = []
-    ## mettre a jour avec Sargas
-    
-    proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1"],stdout=PIPE, bufsize=1, universal_newlines=True )
-    temp = proc.stdout.read().split('\n')
-    temp.pop()
+	temp = []
+	
+	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1"],stdout=PIPE, bufsize=1, universal_newlines=True )
+	temp = proc.stdout.read().split('\n')
+	temp.pop()
 
-    print temp
+	print temp
     print 'Scan terminé, envoie des informations sur le brooker MQTT'
     return 0
     
