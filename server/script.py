@@ -56,7 +56,7 @@ def on_message(client, userdata, msg):
 #        print "delete content"
         deleteContent(msg.topic.split('/')[-1])                                # On supprime tout le contenu du camion
         return 0
-    camion = msg.topic.split('/')[-2]											# On récupère l'Id du camion
+    camion = msg.topic.split('/')[1]											# On récupère l'Id du camion
     
     #data = fetchData(camion, str(msg.payload))               # Sinon on envoie l'information
     data = str(msg.payload)
