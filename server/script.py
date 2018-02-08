@@ -147,7 +147,7 @@ def updateData(camion, data):
   
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"
-time.sleep(10)
+time.sleep(1)
 
 ### LANCEMENT DE l'ECOUTE------------------------------------------------------
 try:
