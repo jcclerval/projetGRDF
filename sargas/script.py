@@ -53,7 +53,6 @@ def scan(l):
 
 	print temp
 	print 'Scan terminé, envoie des informations sur le brooker MQTT'
-	return 0
 
 	#temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
 	if temp != []:
