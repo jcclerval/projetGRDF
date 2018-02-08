@@ -20,23 +20,42 @@ camionId = 30
 nbIteration = 100
 ## ----------------------------------------------------------------------------
 
-### FONCTIONS UTILES ----------------------------------------------------------
+### FONCTIONS -----------------------------------------------------------------
 """
-Liste des fonctions utiles :
-- read():
-    Lance un scan (programme C) et récupère la valeure d'une seule étiquette et
-    la renvoie.
-    
+Liste des fonctions:
 - scan(l):
     Lance l fois la fonction read() et retourne une liste après en avoir
     supprimé les doublons. Publie ensuite cette liste à l'aide de la fonction
     publish(camionId, data).
-    
+ 
+- read():
+    Lance un scan (programme C) et récupère la valeure d'une seule étiquette et
+    la renvoie.
+   
 - publish(camionId, data):
     Publie un paquet MQTT à l'adresse spécifié en variable d'entrée sur 
     etudeje/camionId avec comme valeur l'identifiant de l'étiquette.
-
+    
+Stratégie :
+1. On lance le scan pendant x secondes
+2. Pour chaque étiquette
+    2.1. on envoie /grdf/camionId/outil/etiquette
 """
+
+def scan(l):
+	print 'Début du scan'
+    print "Temps du scan en secondes ",l
+    temp = []
+    ## mettre a jour avec Sargas
+    
+    print 'Scan terminé, envoie des informations sur le brooker MQTT'
+    temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
+    if temp != []:
+        publish(camionId, ["delete"])                                          # On supprime le contenu
+        publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
+    return 0
+  
+  
 def read():
 #    try:
     proc = Popen(["./example"],stdout=PIPE)
@@ -51,20 +70,7 @@ def read():
 #    except:
 #        return ''
         
-def scan(l):
-    print "Nombre d'itération",l
-    temp = []
-    for i in range(0,l):
-        print "Tour ",i
-        red = read()
-        if red != None and red != '':
-            temp.append(red)                                                   # On ajoute la valeur de l'étiquette si elle est non nulle
-    temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
-    if temp != []:
-        publish(camionId, ["delete"])                                          # On supprime le contenu
-        publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
-    return 0
-    
+  
 def publish(camionId, data):
     # Connexion au broker mqtt
     mqttc = mosquitto.Client()
@@ -79,6 +85,7 @@ def publish(camionId, data):
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"
 time.sleep(1)
+print 'Lancement du scan'
 
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
 #os.chdir("/home/pi/projetGRDF")

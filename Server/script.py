@@ -16,15 +16,16 @@ import os
 serverName = "192.168.43.231"
 serverPort = 1883
 
-bdd = 'u925639974_grdf'
+bdd = 'grdf'
 host = 'localhost'
 user = 'root'
-password = 'jcclerval'
+password = 'grdf'
+suffix = 5						# Taille des caractères reservés au suffixe outil
 ## ----------------------------------------------------------------------------
 
-### FONCTIONS UTILES ----------------------------------------------------------
+### FONCTIONS -----------------------------------------------------------------
 """
-Liste des fonctions utiles :
+Liste des fonctions :
 - on_connect():
     Definit le comportement du broker lorsqu'une connexion a lieu.
 
@@ -37,6 +38,12 @@ Liste des fonctions utiles :
 
 - updateData(camion, data):
     Met à jour la BDD
+    
+Stratégie :
+1. On se connecte au brooker et on écoute sur /etudeje
+2. A la récéption d'un delete on supprime le contenu du camion
+3. A la reception d'un message sur /etudeje/camionId/outil/etiquette
+    3.1 
 """
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
@@ -47,15 +54,16 @@ def on_message(client, userdata, msg):
 #    print "Topic: ", msg.topic+'\nMessage: '+str(msg.payload)                  # On affiche le message
     if str(msg.payload) == "delete":                                           # Si le message contient la commande "delete"
 #        print "delete content"
-        deleteContent(msg.topic.split('/')[-1])                                # On supprime tout
+        deleteContent(msg.topic.split('/')[-1])                                # On supprime tout le contenu du camion
         return 0
-    camion = msg.topic.split('/')[-1]
+    camion = msg.topic.split('/')[-2]											# On récupère l'Id du camion
     data = fetchData(camion, str(msg.payload))               # Sinon on envoie l'information
     updateData(camion, data)                                                   # On met à jour la BDD avec les infos recues
     # Suppression des doublons
 #    cleanDataBase()
     return 0
     # Mise à jour de la base de donnees
+"""
 def fetchData(camion, etiId):
     # Ici on va chercher les informations sur l'étiquette afin de l'ajouter dans les effectifs du camion
     # On fait une recherche dans la base de données des étiquettes afin de savoir le type
@@ -81,6 +89,7 @@ def fetchData(camion, etiId):
     except:
         pass
     return 0
+"""
     
 def deleteContent(camionId):
     con = False
@@ -98,6 +107,8 @@ def deleteContent(camionId):
         if con:    
             con.close()
     return 0
+    
+
 def updateData(camion, data):
     # On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
     # la liste des effectifs du camion.
@@ -107,6 +118,9 @@ def updateData(camion, data):
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         try:
+			for etiquettes in data:
+				cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette}, 1);".format(camion=camion, outil = etiquettes[:suffix], idetiquette=etiquettes))
+            """
             cur.execute("SELECT quantite FROM effectifs WHERE idcamion={camion} AND idoutil = {data};".format(camion=camion, data = data))
             qte = cur.fetchone()
             print qte
@@ -117,6 +131,7 @@ def updateData(camion, data):
                 qte = int(qte[0])
                 qte += 1
                 cur.execute("UPDATE effectifs SET quantite={quantite} WHERE idcamion={camion} AND idoutil = {data} ;".format(quantite=qte, camion=camion, data = data))
+			"""
         except:
             pass
     except mdb.Error, e:
