@@ -46,20 +46,20 @@ def scan(l):
 	print 'Début du scan'
 	print "Temps du scan en secondes ",l
 	temp = []
-	
+
 	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1"],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 
 	print temp
-    print 'Scan terminé, envoie des informations sur le brooker MQTT'
-    return 0
-    
-    #temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
-    if temp != []:
-        publish(camionId, ["delete"])                                          # On supprime le contenu
-        publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
-    return 0
+	print 'Scan terminé, envoie des informations sur le brooker MQTT'
+	return 0
+
+	#temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
+	if temp != []:
+		publish(camionId, ["delete"])                                          # On supprime le contenu
+		publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
+	return 0
   
 """ 
 def read():
