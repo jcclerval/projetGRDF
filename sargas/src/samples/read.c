@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
       }
     */
       
-      scanTime = argv[i+1];
+      scanTime = *argv[i+1];
     }
     else
     {
