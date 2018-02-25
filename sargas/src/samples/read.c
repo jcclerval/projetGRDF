@@ -113,6 +113,7 @@ int main(int argc, char *argv[])
   TMR_ReadPlan plan;
   TMR_Region region;
   uint8_t *antennaList = NULL;
+  uint8_t *scanTime = 1500;
   uint8_t buffer[20];
   uint8_t i;
   uint8_t antennaCount = 0x0;
@@ -140,6 +141,16 @@ int main(int argc, char *argv[])
       }
       parseAntennaList(buffer, &antennaCount, argv[i+1]);
       antennaList = buffer;
+    }
+    else if(0x00 == strcmp("--time", argv[i]))		// Ajout d'un argument pour le temps de scan
+    {
+      if (NULL != scanTime)
+      {
+        fprintf(stdout, "Duplicate argument: --time specified more than once\n");
+        usage();
+      }
+      
+      scanTime = argv[i+1];
     }
     else
     {
@@ -259,7 +270,7 @@ int main(int argc, char *argv[])
 #ifndef BARE_METAL
   checkerr(rp, ret, 1, "setting read plan");
 #endif
-  ret = TMR_read(rp, 5000, NULL); 
+  ret = TMR_read(rp, scanTime, NULL); 
   /**
    * C'est ici (au dessus que ca se passe, ici on scan pendant 500ms et on regarde combien de tags on a
    * 
