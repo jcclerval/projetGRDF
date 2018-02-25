@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
   TMR_ReadPlan plan;
   TMR_Region region;
   uint8_t *antennaList = NULL;
-  uint8_t *scanTime = 1500;
+  int scanTime = 1500;
   uint8_t buffer[20];
   uint8_t i;
   uint8_t antennaCount = 0x0;
