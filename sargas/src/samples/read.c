@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-      fprintf(stdout, "Argument %s is not recognized\n", argv[i]);
+      fprintf(stdout, "Argument %s is not recognized\n", argv[i+1]);
       usage();
     }
   }
