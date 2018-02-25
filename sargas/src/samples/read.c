@@ -144,11 +144,13 @@ int main(int argc, char *argv[])
     }
     else if(0x00 == strcmp("--time", argv[i]))		// Ajout d'un argument pour le temps de scan
     {
+	/*
       if (NULL != scanTime)
       {
         fprintf(stdout, "Duplicate argument: --time specified more than once\n");
         usage();
       }
+    */
       
       scanTime = argv[i+1];
     }
