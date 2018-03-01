@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
       }
     */
       
-      scanTime = stoi(*argv[i+1]);
+      scanTime = atoi(argv[i+1]);
       fprintf(stdout, "New Scan time : %ss.\n", argv[i+1]);
     }
     else
