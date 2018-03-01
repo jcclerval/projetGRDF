@@ -100,7 +100,7 @@ def deleteContent(camionId):
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         try:
-            cur.execute("DELETE FROM effectifs WHERE idcamion={camionId};".format(camionId=camionId))
+            cur.execute("DELETE FROM effectifs WHERE idcamion={camionId} AND idoutil <> {null};".format(camionId=camionId, null='NULL'))
         except:
             pass
     except mdb.Error, e:
