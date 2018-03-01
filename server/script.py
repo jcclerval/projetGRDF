@@ -13,8 +13,8 @@ import sys
 import time
 import os
 ## Définition des variables ---------------------------------------------------
-serverName = "192.168.1.23"
-#serverName = "jcsgrdf.ddns.net"
+#serverName = "192.168.1.23"
+serverName = "jcsgrdf.ddns.net"
 serverPort = 1883
 
 bdd = 'grdf'
