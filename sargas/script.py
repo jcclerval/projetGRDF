@@ -48,7 +48,7 @@ def scan(l):
 	print "Temps du scan en secondes ",l
 	temp = []
 
-	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1"],stdout=PIPE, bufsize=1, universal_newlines=True )
+	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1","--time","10000"],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 
