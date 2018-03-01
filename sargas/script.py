@@ -57,6 +57,7 @@ def scan(l):
 
 	#temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
 	if temp != []:
+		print 'Delte contenu du camion'
 		publish(camionId, ["delete"])                                          # On supprime le contenu
 		publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
 	return 0

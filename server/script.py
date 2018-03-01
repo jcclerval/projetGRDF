@@ -55,7 +55,7 @@ def on_message(client, userdata, msg):
     # A la reception d'un message ...
 #    print "Topic: ", msg.topic+'\nMessage: '+str(msg.payload)                  # On affiche le message
     if str(msg.payload) == "delete":                                           # Si le message contient la commande "delete"
-#        print "delete content"
+        print "delete content"
         deleteContent(msg.topic.split('/')[-1])                                # On supprime tout le contenu du camion
         return 0
     camion = msg.topic.split('/')[1]											# On récupère l'Id du camion
