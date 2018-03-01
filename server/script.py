@@ -14,7 +14,8 @@ import time
 import os
 ## Définition des variables ---------------------------------------------------
 #serverName = "192.168.1.23"
-serverName = "jcsgrdf.ddns.net"
+#serverName = "jcsgrdf.ddns.net"
+serverName = "raspberrypi"
 serverPort = 1883
 
 bdd = 'grdf'
@@ -121,8 +122,8 @@ def updateData(camion, data):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
-			print "INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = data[:suffix], idetiquette=data)
-			cur.execute("INSERT INTO effectifs VALUES(NULL, {camion}, {outil}, 1, {idetiquette});".format(camion=camion, outil = data[:suffix], idetiquette=data))
+			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data)
+			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
 			print 'error'
 			pass
