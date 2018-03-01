@@ -18,7 +18,7 @@ serverName = "192.168.1.23"
 #serverName = "jcsgrdf.ddns.net"
 serverPort = 1883
 camionId = 30
-tpsIteration = 5
+tpsIteration = 10000
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -45,10 +45,10 @@ Stratégie :
 
 def scan(l):
 	print 'Début du scan'
-	print "Temps du scan en secondes ",l
+	print "Temps du scan en milisecondes ",l
 	temp = []
 
-	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1","--time","10000"],stdout=PIPE, bufsize=1, universal_newlines=True )
+	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 
