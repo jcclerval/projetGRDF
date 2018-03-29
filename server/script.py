@@ -42,16 +42,20 @@ Liste des fonctions :
     Met à jour la BDD
     
 - chckTag(tag):
-    on vérifie si l'étiquette est déjà répertorié, si non on l'ajoute
+    On vérifie si l'étiquette est déjà répertorié, si non on l'ajoute
 
 - chckTool(tool):
     On vérifie que l'outil existe bien, sinon on le crée.
 
 Stratégie :
 1. On se connecte au brooker et on écoute sur /etudeje
-2. A la récéption d'un delete on supprime le contenu du camion
+2. A la réception d'un delete on supprime le contenu du camion
 3. A la reception d'un message sur /etudeje/camionId/outil/etiquette
-    3.1 
+    3.1
+4. Après avoir ajouté l'effectif on procède à des vérifications
+   élémentaires
+	4.1 L'étiquette a-t-elle déjà été référencée ?
+	4.2 L'outil auquel l'étiquette fait référence a-t-il déjà été référencé ?
 """
 def on_connect(client, userdata, flags, rc):
   print("Connected with result code "+str(rc))
@@ -140,16 +144,60 @@ def updateData(camion, data):
 		if con:    
 			con.close()
 	return 0
-def chckTag(tag):
+def chckTag(tag,suffix):
     """
     Ici on vérifie que le tag est déjà dans la base de données.
     """
+    print "Tag to check :",tag
+	con = False
+	try:
+		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
+		cur = con.cursor()
+		try:
+			print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
+			cur.execute("SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag))
+			temp = cur.fetchone()
+			if temp[0] == 'NULL':
+				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
+				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
+		except:
+			print 'error'
+			pass
+	except mdb.Error, e:
+		print "Error %d: %s" % (e.args[0],e.args[1])
+		sys.exit(1)
+	finally:    
+		if con:    
+			con.close()
+    
     return 0
 
 def chckTool(tool):
     """
     Ici on vérifie que l'outil proposé est dans la base de données également, sinon on le rajoute.
     """
+    print "Tool to check :",tool
+	con = False
+	try:
+		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
+		cur = con.cursor()
+		try:
+			print "SELECT * FROM outils WHERE prefix={tool};".format(tool=tool)
+			cur.execute("SELECT * FROM outils WHERE prefix={tool};".format(tool=tool))
+			temp = cur.fetchone()
+			if temp[0] == 'NULL':
+				print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool)
+				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool))
+		except:
+			print 'error'
+			pass
+	except mdb.Error, e:
+		print "Error %d: %s" % (e.args[0],e.args[1])
+		sys.exit(1)
+	finally:    
+		if con:    
+			con.close()
+    
     return 0
 
   

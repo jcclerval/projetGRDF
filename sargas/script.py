@@ -39,8 +39,10 @@ Liste des fonctions:
     
 Stratégie :
 1. On lance le scan pendant x secondes
-2. Pour chaque étiquette
-    2.1. on envoie /grdf/camionId/outil/etiquette
+2. Si on trouve des étiquettes on envoie un delete pour effacer les 
+   étiquettes déjà existantes
+3. Pour chaque étiquette
+    3.1 On envoie /grdf/camionId/outil/etiquette
 """
 
 def scan(l):
