@@ -157,7 +157,7 @@ def chckTag(tag,suffix):
 			print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
 			cur.execute("SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag))
 			temp = cur.fetchone()
-			if temp[0] == 'NULL':
+			if temp[0] == None:
 				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
 				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
 		except:
@@ -185,7 +185,7 @@ def chckTool(tool):
 			print "SELECT * FROM outils WHERE prefix={tool};".format(tool=tool)
 			cur.execute("SELECT * FROM outils WHERE prefix={tool};".format(tool=tool))
 			temp = cur.fetchone()
-			if temp[0] == 'NULL':
+			if temp[0] == None:
 				print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool)
 				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool))
 		except:
