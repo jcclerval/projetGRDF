@@ -41,6 +41,12 @@ Liste des fonctions :
 - updateData(camion, data):
     Met à jour la BDD
     
+- chckTag(tag):
+    on vérifie si l'étiquette est déjà répertorié, si non on l'ajoute
+
+- chckTool(tool):
+    On vérifie que l'outil existe bien, sinon on le crée.
+
 Stratégie :
 1. On se connecte au brooker et on écoute sur /etudeje
 2. A la récéption d'un delete on supprime le contenu du camion
@@ -134,7 +140,18 @@ def updateData(camion, data):
 		if con:    
 			con.close()
 	return 0
-    
+def chckTag(tag):
+    """
+    Ici on vérifie que le tag est déjà dans la base de données.
+    """
+    return 0
+
+def chckTool(tool):
+    """
+    Ici on vérifie que l'outil proposé est dans la base de données également, sinon on le rajoute.
+    """
+    return 0
+
   
 ### INITIALISATION DU SCRIPT --------------------------------------------------
 print "Initialisation du script"
