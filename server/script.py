@@ -188,13 +188,13 @@ def chckTool(tool):
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
-		print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool)
+		print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', '0photo', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool)
 		print "SELECT * FROM outils WHERE prefix='{tool}';".format(tool=tool)
 		try:
 			cur.execute("SELECT * FROM outils WHERE prefix='{tool}';".format(tool=tool))
 			temp = cur.fetchone()
 			if temp[0] == None:
-				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool))
+				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', '0photo', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool))
 		except:
 			print 'error'
 			pass
