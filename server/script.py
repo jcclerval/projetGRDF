@@ -161,7 +161,7 @@ def chckTag(tag,suffix, cam):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-		temp = cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)))
+		temp = cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 		print temp
 		#~ try:
 			#~ if temp[0] == 0:
