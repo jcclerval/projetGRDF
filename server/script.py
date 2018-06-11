@@ -163,7 +163,7 @@ def chckTag(tag,suffix):
 			cur.execute("SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag))
 			temp = cur.fetchone()
 			if temp[0] == None:
-				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
+				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix])
 				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = tag[:suffix]))
 		except:
 			print 'error'
