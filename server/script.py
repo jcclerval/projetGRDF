@@ -154,14 +154,14 @@ def chckTag(tag,suffix):
 	"""
 	print "Tag to check :",tag
 	con = False
-	print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
+	print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
 			chckTool(tool)
-			print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
-			cur.execute("SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag))
+			print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
+			cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 			temp = cur.fetchone()
 			if temp[0] == None:
 				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = suffix)
@@ -189,8 +189,8 @@ def chckTool(tool):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
-			print "SELECT * FROM outils WHERE prefix={tool};".format(tool=tool)
-			cur.execute("SELECT * FROM outils WHERE prefix={tool};".format(tool=tool))
+			print "SELECT * FROM outils WHERE prefix='{tool}';".format(tool=tool)
+			cur.execute("SELECT * FROM outils WHERE prefix='{tool}';".format(tool=tool))
 			temp = cur.fetchone()
 			if temp[0] == None:
 				print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'NULL, NULL');".format(name='NouvelOutil '+str(tool), prefix=tool)
