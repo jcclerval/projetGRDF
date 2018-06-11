@@ -154,22 +154,19 @@ def chckTag(tag,suffix, cam):
 	"""
 	print "Tag to check :",tag
 	con = False
-	print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-	print "TEST"
-	##chckTool(tool)
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-		temp = cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
-		print temp
-		#~ try:
-			#~ if temp[0] == 0:
-				#~ print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
-				#~ cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
-		#~ except:
-			#~ print 'error'
-			#~ pass
+		try:
+			chckTool(tool)
+			temp = cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
+			if temp == 0:
+				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
+				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
+		except:
+			print 'error'
+			pass
 	except mdb.Error, e:
 		print "Error %d: %s" % (e.args[0],e.args[1])
 		sys.exit(1)
@@ -192,9 +189,8 @@ def chckTool(tool):
 		print "INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', '0photo', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool)
 		print "SELECT * FROM outils WHERE prefixe='{tool}';".format(tool=tool)
 		try:
-			cur.execute("SELECT * FROM outils WHERE prefixe='{tool}';".format(tool=tool))
-			temp = cur.fetchone()
-			if temp[0] == None:
+			temp = cur.execute("SELECT * FROM outils WHERE prefixe='{tool}';".format(tool=tool))
+			if temp == 0:
 				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', '0photo', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool))
 		except:
 			print 'error'
