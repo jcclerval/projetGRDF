@@ -149,10 +149,10 @@ def updateData(camion, data):
 	return 0
 	
 def chckTag(tag,suffix):
-    """
-    Ici on vérifie que le tag est déjà dans la base de données.
-    """
-    print "Tag to check :",tag
+	"""
+	Ici on vérifie que le tag est déjà dans la base de données.
+	"""
+	print "Tag to check :",tag
 	con = False
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
@@ -174,15 +174,15 @@ def chckTag(tag,suffix):
 	finally:    
 		if con:    
 			con.close()
-    
-    return 0
+
+	return 0
 
 def chckTool(tool):
-    """
-    Ici on vérifie que l'outil proposé est dans la base de données
-    également, sinon on le rajoute.
-    """
-    print "Tool to check :",tool
+	"""
+	Ici on vérifie que l'outil proposé est dans la base de données
+	également, sinon on le rajoute.
+	"""
+	print "Tool to check :",tool
 	con = False
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
@@ -203,8 +203,8 @@ def chckTool(tool):
 	finally:    
 		if con:    
 			con.close()
-    
-    return 0
+
+	return 0
 
   
 ### INITIALISATION DU SCRIPT --------------------------------------------------
