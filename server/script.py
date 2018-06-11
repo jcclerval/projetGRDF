@@ -158,10 +158,10 @@ def chckTag(tag,suffix):
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
+		cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 		try:
 			chckTool(tool)
 			print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-			cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 			temp = cur.fetchone()
 			if temp[0] == None:
 				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = suffix)
