@@ -134,7 +134,7 @@ def updateData(camion, data):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
-			chckTag(tag,outil)
+			chckTag(tag,outil, camion)
 			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = outil, idetiquette=data)
 			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
@@ -148,7 +148,7 @@ def updateData(camion, data):
 			con.close()
 	return 0
 	
-def chckTag(tag,suffix):
+def chckTag(tag,suffix, cam):
 	"""
 	Ici on vérifie que le tag est déjà dans la base de données.
 	"""
@@ -158,14 +158,14 @@ def chckTag(tag,suffix):
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 		try:
 			chckTool(tool)
 			print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
+			cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 			temp = cur.fetchone()
 			if temp[0] == None:
 				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = suffix)
-				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}');".format(etiquette=tag,outil = suffix))
+				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
 		except:
 			print 'error'
 			pass
