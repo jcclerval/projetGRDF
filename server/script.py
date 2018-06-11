@@ -156,16 +156,16 @@ def chckTag(tag,suffix, cam):
 	con = False
 	print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
 	print "TEST"
-	chckTool(tool)
+	##chckTool(tool)
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-		print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
 		try:
 			cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 			temp = cur.fetchone()
 			if temp[0] == None:
+				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
 				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
 		except:
 			print 'error'
