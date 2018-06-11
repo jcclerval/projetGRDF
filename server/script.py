@@ -164,13 +164,13 @@ def chckTag(tag,suffix, cam):
 		cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
 		temp = cur.rowcount()
 		print temp[0]
-		try:
-			if temp[0] == 0:
-				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
-				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
-		except:
-			print 'error'
-			pass
+		#~ try:
+			#~ if temp[0] == 0:
+				#~ print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
+				#~ cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
+		#~ except:
+			#~ print 'error'
+			#~ pass
 	except mdb.Error, e:
 		print "Error %d: %s" % (e.args[0],e.args[1])
 		sys.exit(1)
