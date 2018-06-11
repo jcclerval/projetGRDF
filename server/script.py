@@ -126,13 +126,16 @@ def deleteContent(camionId):
 def updateData(camion, data):
 	# On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
 	# la liste des effectifs du camion.
+	tag = data
+	outil = data[:suffix]
 	print "Data :",data
 	con = False
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
-			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data)
+			chckTag(tag,outil)
+			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = outil, idetiquette=data)
 			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
 			print 'error'
@@ -144,6 +147,7 @@ def updateData(camion, data):
 		if con:    
 			con.close()
 	return 0
+	
 def chckTag(tag,suffix):
     """
     Ici on vérifie que le tag est déjà dans la base de données.
@@ -154,6 +158,7 @@ def chckTag(tag,suffix):
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
+			chckTool(tool)
 			print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
 			cur.execute("SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag))
 			temp = cur.fetchone()
@@ -174,7 +179,8 @@ def chckTag(tag,suffix):
 
 def chckTool(tool):
     """
-    Ici on vérifie que l'outil proposé est dans la base de données également, sinon on le rajoute.
+    Ici on vérifie que l'outil proposé est dans la base de données
+    également, sinon on le rajoute.
     """
     print "Tool to check :",tool
 	con = False
