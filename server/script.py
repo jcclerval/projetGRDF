@@ -154,6 +154,7 @@ def chckTag(tag,suffix):
 	"""
 	print "Tag to check :",tag
 	con = False
+	print "SELECT * FROM etiquettes WHERE etiquette={etiquette};".format(etiquette=tag)
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
