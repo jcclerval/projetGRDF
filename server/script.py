@@ -156,27 +156,28 @@ def chckTag(tag,suffix, cam):
 	con = False
 	print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
 	print "TEST"
+	cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
+	temp = cur.fetchone()
+	print temp[0]
 	##chckTool(tool)
-	try:
-		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
-		cur = con.cursor()
-		print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
-		cur.execute("SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag))
-		temp = cur.fetchone()
-		print temp[0]
-		try:
-			if temp[0] == None:
-				print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
-				cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
-		except:
-			print 'error'
-			pass
-	except mdb.Error, e:
-		print "Error %d: %s" % (e.args[0],e.args[1])
-		sys.exit(1)
-	finally:    
-		if con:    
-			con.close()
+	#try:
+		#con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
+		#cur = con.cursor()
+		#print "SELECT * FROM etiquettes WHERE etiquette='{etiquette}';".format(etiquette=tag)
+		#
+		#try:
+			#if temp[0] == None:
+				#print "INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam)
+				#cur.execute("INSERT INTO etiquettes VALUES(NULL,'{etiquette}', '{outil}', {camion});".format(etiquette=tag,outil = suffix, camion=cam))
+		#except:
+			#print 'error'
+			#pass
+	#except mdb.Error, e:
+		#print "Error %d: %s" % (e.args[0],e.args[1])
+		#sys.exit(1)
+	#finally:    
+		#if con:    
+			#con.close()
 
 	return 0
 
