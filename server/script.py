@@ -135,8 +135,8 @@ def updateData(camion, data):
 		cur = con.cursor()
 		try:
 			chckTag(tag,outil, camion)
-			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = outil, idetiquette=data)
-			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '1', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
+			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = outil, idetiquette=data)
+			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
 			print 'error'
 			pass
