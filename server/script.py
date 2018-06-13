@@ -191,7 +191,7 @@ def chckTool(tool):
 		try:
 			temp = cur.execute("SELECT * FROM outils WHERE prefixe='{tool}';".format(tool=tool))
 			if temp == 0:
-				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', '0photo', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool))
+				cur.execute("INSERT INTO outils VALUES(NULL,'{name}','{prefix}','1', 'outil.png', NULL);".format(name='NouvelOutil '+str(tool), prefix=tool))
 		except:
 			print 'error'
 			pass
