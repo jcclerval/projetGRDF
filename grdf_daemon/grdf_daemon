@@ -8,7 +8,7 @@
 # Short-Description: grdf_daemon...
 ### END INIT INFO
      
-    NAME=grdf_daemon
+    NAME=grdf_daemon.sh
     DAEMON="/home/grdf/projetGRDF/grdf_daemon/grdf_launcher.sh" #ligne de commande du programme, attention à l'extension .py.
     #daemon_OPT="-d -p -f /home/grdf/projetGRDF/server/grdf_daemon.ini"  #argument à utiliser par le programme - Remplacer Utilisateur par votre nom de login
     DAEMONUSER="grdf" #utilisateur du programme
