@@ -9,10 +9,10 @@
 ### END INIT INFO
 
 # Must be a valid filename
-NAME=grdf_launcher.sh
+NAME=grdf_daemon.py
 PIDFILE=/var/run/$NAME.pid
 #This is the command to be run, give the full pathname
-DAEMON=/home/grdf/projetGRDF/grdf_daemon/grdf_launcher.sh
+DAEMON=/home/grdf/projetGRDF/server/grdf_daemon.py
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
@@ -34,11 +34,11 @@ case "$1" in
 	echo "."
 	;;
   force-stop)
-    d_stop
-    killall -q $daemon_NAME || true
-    sleep 2
-    killall -q -9 $daemon_NAME || true
-    !;
+	start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE        
+        killall -q $daemon_NAME || true
+        sleep 2
+        killall -q -9 $daemon_NAME || true
+        ;;
  
   status)
     status_of_proc "$daemon_NAME" "$DAEMON" "system-wide $daemon_NAME" && exit 0 || exit $?
