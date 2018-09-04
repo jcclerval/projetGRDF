@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Created on Tue Nov 29 21:14:30 2016
 
@@ -15,12 +15,12 @@ import os
 ## Définition des variables ---------------------------------------------------
 #serverName = "192.168.1.23"
 #serverName = "jcsgrdf.ddns.net"
-serverName = "raspberrypi"
+serverName = "51.68.226.195"
 serverPort = 1883
 
 bdd = 'grdf'
 host = 'localhost'
-user = 'root'
+user = 'grdf'
 password = 'grdf'
 suffix = 5						# Taille des caractères reservés au suffixe outil
 ## ----------------------------------------------------------------------------
