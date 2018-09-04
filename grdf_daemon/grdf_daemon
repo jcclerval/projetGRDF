@@ -9,10 +9,10 @@
 ### END INIT INFO
      
     NAME=grdf_daemon
-    DAEMON="/home/grdf/projetGRDF/server/grdf_daemon.py" #ligne de commande du programme, attention à l'extension .py.
+    DAEMON="/home/grdf/projetGRDF/grdf_daemon/grdf_launcher.sh" #ligne de commande du programme, attention à l'extension .py.
     #daemon_OPT="-d -p -f /home/grdf/projetGRDF/server/grdf_daemon.ini"  #argument à utiliser par le programme - Remplacer Utilisateur par votre nom de login
     DAEMONUSER="grdf" #utilisateur du programme
-    daemon_NAME="grdf_daemon.py" #Nom du programme (doit être identique à l'exécutable).
+    daemon_NAME="grdf_launcher.sh" #Nom du programme (doit être identique à l'exécutable).
     PID_FILE=/var/run/$NAME.pid
     #Attention le script est un script bash, le script ne portera donc pas l'extension .py mais .sh.
      
