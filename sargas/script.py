@@ -15,9 +15,9 @@ import sys
 import time
 ## Définition des variables ---------------------------------------------------
 #serverName = "192.168.1.23"
-serverName = "51.68.226.195"
+serverName = '51.68.226.195'
 serverPort = 1883
-camionId = 31
+camionId = 'AA000AA'
 tpsIteration = 10000
 ## ----------------------------------------------------------------------------
 

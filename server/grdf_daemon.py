@@ -61,16 +61,14 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     # A la reception d'un message ...
-#    print "Topic: ", msg.topic+'\nMessage: '+str(msg.payload)                  # On affiche le message
-    if str(msg.payload) == "delete":                                           # Si le message contient la commande "delete"
+    if str(msg.payload) == "delete":                                           	# Si le message contient la commande "delete"
         print "delete content"
-        deleteContent(msg.topic.split('/')[-1])                                # On supprime tout le contenu du camion
+        deleteContent(msg.topic.split('/')[-1])                                	# On supprime tout le contenu du camion
         return 0
     camion = msg.topic.split('/')[1]											# On récupère l'Id du camion
-    
-    #data = fetchData(camion, str(msg.payload))               # Sinon on envoie l'information
+
     data = str(msg.payload)
-    updateData(camion, data)                                                   # On met à jour la BDD avec les infos recues
+    updateData(camion, data)                                                   	# On met à jour la BDD avec les infos recues
     # Suppression des doublons
 #    cleanDataBase()
     return 0
@@ -109,7 +107,7 @@ def deleteContent(camionId):
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         try:
-            cur.execute("DELETE FROM effectifs WHERE idcamion='{camionId}' AND etiquette IS NOT NULL;".format(camionId=camionId))
+            cur.execute("DELETE FROM effectifs WHERE plaque='{camionId}' AND etiquette IS NOT NULL;".format(camionId=camionId))
         except:
             pass
     except mdb.Error, e:
