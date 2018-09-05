@@ -20,7 +20,7 @@ bdd = 'grdf'
 host = 'localhost'
 user = 'grdf'
 password = 'grdf'
-suffix = 5						# Taille des caractères reservés au suffixe outil
+suffix = 7						# Taille des caractères reservés au suffixe outil
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -126,14 +126,12 @@ def updateData(camion, data):
 	# la liste des effectifs du camion.
 	tag = data
 	outil = data[:suffix]
-	print "Data :",data
 	con = False
 	try:
 		con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
 		cur = con.cursor()
 		try:
 			chckTag(tag,outil, camion)
-			print "INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = outil, idetiquette=data)
 			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 		except:
 			print 'error'

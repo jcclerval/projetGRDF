@@ -54,11 +54,11 @@ def scan(l):
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 
-	print temp
 	print 'Scan terminé, envoie des informations sur le brooker MQTT'
 
 	#temp = list(set(temp))                                                     # On transforme la liste pour supprimer les doublons
 	if temp != []:
+		print "{} elements scanes".format(len(temp))
 		print 'Delte contenu du camion'
 		publish(camionId, ["delete"])                                          # On supprime le contenu
 		publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
@@ -86,7 +86,6 @@ def publish(camionId, data):
     mqttc.connect(serverName, serverPort)
     
     for element in data:
-        print "Publié :", element
         mqttc.publish("etudeje/"+str(camionId), element)
         mqttc.loop(2)
     return 0
