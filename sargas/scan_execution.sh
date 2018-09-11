@@ -11,7 +11,7 @@ i="0"
 max_count="10"
 echo "--- Lancement de Wvdial ---"
 wvdial &
-sleep 2
+sleep 5
 echo "--- Test de connection ---"
 while [ $i -le $max_count ]
 	do
