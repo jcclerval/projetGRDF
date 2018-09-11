@@ -1,14 +1,19 @@
 #!/bin/bash
 
 sleep 3
+# Date
+dt=$(date '+%d/%m/%Y %H:%M:%S');
+
+echo "--- Date $dt ---"
 echo "--- Lancement d'un scan ---"
 #
 i="0"
+max_count="10"
 echo "--- Lancement de Wvdial ---"
-#wvdial &
+wvdial &
 sleep 2
 echo "--- Test de connection ---"
-while [ $i -lt 10 ]
+while [ $i -le $max_count ]
 	do
 	echo "Tentative $i"
 	# Test de la connection internet
@@ -16,7 +21,9 @@ while [ $i -lt 10 ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			i="10"
+			
+			killall wvdial
+			break
 	else
 			echo "Offline"
 			sleep 2
