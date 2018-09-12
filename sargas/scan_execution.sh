@@ -21,7 +21,7 @@ while [ $i -le $max_count ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			
+			python script.py
 			killall wvdial
 			break
 	else
