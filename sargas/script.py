@@ -50,7 +50,7 @@ def scan(l):
 	print "Temps du scan en milisecondes :",l
 	temp = []
 
-	proc = Popen(["./src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
+	proc = Popen(["/home/debian/ProjetGRDF/sargas/src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 

@@ -1,0 +1,16 @@
+
+--- Date 22/09/2018 12:26:24 ---
+--- Lancement d'un scan ---
+--- Test de connection ---
+Tentative 0
+Online
+proceed with programm
+Initialisation du script
+Lancement du scan
+Début du scan
+Temps du scan en milisecondes : 10000
+Scan terminé, envoie des informations sur le brooker MQTT
+11 elements scanes
+Delete contenu du camion
+terminé
+Fin du code
