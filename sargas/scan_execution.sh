@@ -11,7 +11,7 @@ i="0"
 max_count="10"
 echo "--- Lancement de Wvdial ---"
 wvdial &
-sleep 5
+sleep 10
 echo "--- Test de connection ---"
 while [ $i -le $max_count ]
 	do
@@ -21,7 +21,7 @@ while [ $i -le $max_count ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			python script.py
+			python /home/debian/ProjetGRDF/sargas/script.py
 			killall wvdial
 			break
 	else
