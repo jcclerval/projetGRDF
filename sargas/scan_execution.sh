@@ -4,7 +4,7 @@ sleep 3
 # Date
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 # Path
-path0=`var.py`
+path0=`python var.py`
 
 echo ""
 echo "--- Date $dt ---"
