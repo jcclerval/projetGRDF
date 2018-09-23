@@ -1,2 +1,2 @@
 #!/bin/bash
-echo `python var.py`
+echo `python /home/debian/bin/var.py`
