@@ -15,7 +15,7 @@ import sys
 import time
 ## Définition des variables ---------------------------------------------------
 sys.path.append('/home/debian/bin')
-from var import path_0 serverName serverPort camionId tpsIteration
+from var import path_0, serverName, serverPort, camionId, tpsIteration
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
