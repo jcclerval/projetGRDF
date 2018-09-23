@@ -14,11 +14,7 @@ import paho.mqtt.client as mosquitto
 import sys
 import time
 ## Définition des variables ---------------------------------------------------
-#serverName = "192.168.1.23"
-serverName = '51.68.226.195'
-serverPort = 1883
-camionId = 'AA000AA'
-tpsIteration = 10000
+from var import path_0 serverName serverPort camionId tpsIteration
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -50,7 +46,7 @@ def scan(l):
 	print "Temps du scan en milisecondes :",l
 	temp = []
 
-	proc = Popen(["/home/debian/ProjetGRDF/sargas/src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
+	proc = Popen([path_0+"sargas/src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 

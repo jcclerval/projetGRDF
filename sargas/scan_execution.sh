@@ -3,6 +3,8 @@
 sleep 3
 # Date
 dt=$(date '+%d/%m/%Y %H:%M:%S');
+# Path
+path0=`var.py`
 
 echo "--- Date $dt ---"
 echo "--- Lancement d'un scan ---"
@@ -21,7 +23,7 @@ while [ $i -le $max_count ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			python /home/debian/ProjetGRDF/sargas/script.py
+			python $path0/sargas/script.py
 			killall wvdial
 			break
 	else
