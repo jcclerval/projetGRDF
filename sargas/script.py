@@ -16,7 +16,7 @@ import time
 from optparse import OptionParser
 
 ## Définition des variables ---------------------------------------------------
-from var import serverName, serverPort, camionId, tpsIteration
+from var import serverName, serverPort, tpsIteration
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -43,7 +43,7 @@ Stratégie :
     3.1 On envoie /grdf/camionId/outil/etiquette
 """
 
-def scan(l, path):
+def scan(l, path, camionId):
 	print 'Début du scan'
 	print "Temps du scan en milisecondes :",l
 	temp = []
@@ -92,6 +92,8 @@ def publish(camionId, data):
 parser = OptionParser()
 parser.add_option("-f", "--folder", dest="folder",
                   help="write report to FILE", metavar="FILE", default ='/home/debian/ProjetGRDF/')
+parser.add_option("-c", "--camion", dest="idcamion",
+                  help="get id camion", metavar="CAMION", default ='AA000AA')
 parser.add_option("-v", "--verbose",
                   action="store_false", dest="verbose", default=False,
                   help="don't print status messages to stdout")
@@ -105,7 +107,7 @@ print 'Lancement du scan'
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
 #os.chdir("/home/pi/projetGRDF")
 try:
-    proces = Process(target=lambda : scan(tpsIteration, options.folder))
+    proces = Process(target=lambda : scan(tpsIteration, options.folder, options.idcamion))
     proces.start()
     proces.join()
 except KeyboardInterrupt:
