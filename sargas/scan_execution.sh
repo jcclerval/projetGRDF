@@ -23,7 +23,7 @@ while [ $i -le $max_count ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			python $path0'sargas/script.py'
+			python $path0'sargas/script.py' $path0
 			killall wvdial
 			break
 	else
