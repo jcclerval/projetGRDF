@@ -4,7 +4,8 @@ sleep 3
 # Date
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 # Path
-path0=`get_var.sh`
+path0=`get_path.sh`
+idcamion=`get_camion.sh`
 
 echo ""
 echo "--- Date $dt ---"
@@ -24,7 +25,7 @@ while [ $i -le $max_count ]
 	if [[ $? -eq 0 ]]; then
 			echo "Online"
 			echo "proceed with programm"
-			python $path0'sargas/script.py -f '$path0' -c ' `get_camion.sh`
+			python $path0'sargas/script.py -f '$path0' -c '$idcamion
 			killall wvdial
 			break
 	else
