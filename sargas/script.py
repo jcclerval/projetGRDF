@@ -13,9 +13,10 @@ import os
 import paho.mqtt.client as mosquitto
 import sys
 import time
+from optparse import OptionParser
+
 ## Définition des variables ---------------------------------------------------
-sys.path.append('/home/debian/bin')
-from var import path_0, serverName, serverPort, camionId, tpsIteration
+from var import serverName, serverPort, camionId, tpsIteration
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -42,12 +43,12 @@ Stratégie :
     3.1 On envoie /grdf/camionId/outil/etiquette
 """
 
-def scan(l):
+def scan(l, path):
 	print 'Début du scan'
 	print "Temps du scan en milisecondes :",l
 	temp = []
 
-	proc = Popen([path_0+"sargas/src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
+	proc = Popen([path+"sargas/src/api/read", "tmr://localhost", "--ant", "1","--time",str(l)],stdout=PIPE, bufsize=1, universal_newlines=True )
 	temp = proc.stdout.read().split('\n')
 	temp.pop()
 
@@ -88,6 +89,15 @@ def publish(camionId, data):
     return 0
     
 ### INITIALISATION DU SCRIPT --------------------------------------------------
+parser = OptionParser()
+parser.add_option("-f", "--folder", dest="folder",
+                  help="write report to FILE", metavar="FILE", default ='./')
+parser.add_option("-v", "--verbose",
+                  action="store_false", dest="verbose", default=False,
+                  help="don't print status messages to stdout")
+
+(options, args) = parser.parse_args()
+print options.folder
 print "Initialisation du script"
 time.sleep(1)
 print 'Lancement du scan'
@@ -95,7 +105,7 @@ print 'Lancement du scan'
 ### LANCEMENT D'UN SCAN -------------------------------------------------------
 #os.chdir("/home/pi/projetGRDF")
 try:
-    proces = Process(target=lambda : scan(tpsIteration))
+    proces = Process(target=lambda : scan(tpsIteration, options.folder))
     proces.start()
     proces.join()
 except KeyboardInterrupt:
