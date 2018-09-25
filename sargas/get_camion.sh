@@ -1,2 +1,2 @@
 #!/bin/bash
-echo `AA000AA`
+echo 'AA000AA'

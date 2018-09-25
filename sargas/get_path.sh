@@ -1,2 +1,2 @@
 #!/bin/bash
-echo `python /home/debian/bin/var.py`
+echo '/home/debian/ProjetGRDF/'
