@@ -12,6 +12,7 @@ import paho.mqtt.client as mqtt
 import sys
 import time
 import os
+import datetime
 ## Définition des variables ---------------------------------------------------
 serverName = "51.68.226.195"
 serverPort = 1883
@@ -122,6 +123,8 @@ def deleteContent(camionId):
 def updateData(camion, data):
 	# On vient de recevoir l'Id d'un outil, on va alors ajouter cet item dans 
 	# la liste des effectifs du camion.
+	nw=datetime.datetime.now()
+	
 	tag = data
 	outil = data[:suffix]
 	con = False
@@ -131,6 +134,9 @@ def updateData(camion, data):
 		try:
 			chckTag(tag,outil, camion)
 			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
+			cur.execute("UPDATE camion SET derniereCo='{}' WHERE plaque='{}'".format('{}-{}-{}'.format(nw.year, nw.month, nw.day),camion))
+			with open('/home/grdf/logs/log', 'a') as log:
+				print >> log, '{}-{}-{}  --- {} --- {}'.format(nw.year, nw.month, nw.day, camion, data)
 		except:
 			print 'error'
 			pass
