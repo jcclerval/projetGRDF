@@ -1,4 +1,5 @@
 #!/bin/bash
 
-git pull
+cd /home/debian/ProjetGRDF
+sudo git pull
 
