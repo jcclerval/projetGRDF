@@ -135,6 +135,8 @@ def updateData(camion, data):
 			chckTag(tag,outil, camion)
 			cur.execute("INSERT INTO effectifs VALUES(NULL, '{camion}', '{outil}', '{idetiquette}');".format(camion=camion, outil = data[:suffix], idetiquette=data))
 			cur.execute("UPDATE camion SET derniereCo='{}' WHERE plaque='{}'".format('{}-{}-{}'.format(nw.year, nw.month, nw.day),camion))
+			with open('/home/grdf/logs/log', 'a') as log:
+				print >> log, '{}-{}-{}  --- {} --- {}'.format(nw.year, nw.month, nw.day, camion, data[:suffix])
 		except:
 			print 'error'
 			pass
