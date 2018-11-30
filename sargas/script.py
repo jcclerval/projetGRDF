@@ -60,6 +60,8 @@ def scan(l, path, camionId):
 		print 'Delete contenu du camion'
 		publish(camionId, ["delete"])                                          # On supprime le contenu
 		publish(camionId, temp)                                                # On publie la liste des etiquettes trouvées
+	else:
+		print 'Liste vide'
 	return 0
   
 """ 
