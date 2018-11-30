@@ -9,6 +9,10 @@ idcamion=`$path0'../get_camion.sh'`
 
 echo ""
 echo "--- Date $dt ---"
+echo "--- Telechargement des modifs ---"
+cd path0
+sudo git pull
+sleep 5
 echo "--- Lancement d'un scan ---"
 #
 i="0"
