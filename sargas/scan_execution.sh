@@ -4,8 +4,8 @@ sleep 3
 # Date
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 # Path
-path0=`get_path.sh`
-idcamion=`get_camion.sh`
+path0='/home/debian/ProjetGRDF/'
+idcamion=`$path0'../get_camion.sh'`
 
 echo "--- Date $dt ---"
 echo "--- Lancement d'un scan ---"
