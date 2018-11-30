@@ -108,7 +108,7 @@ print 'Lancement du scan'
 #os.chdir("/home/pi/projetGRDF")
 try:
     proces = Process(target=lambda : scan(tpsIteration, options.folder, options.idcamion))
-    proces.start()HWaddr b0:d5:cc:84:4b:6f
+    proces.start()
     proces.join()
 except KeyboardInterrupt:
     print '\nInterrupted'
