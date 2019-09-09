@@ -111,7 +111,7 @@ def deleteContent(camionId):
         try:
             cur.execute("DELETE FROM effectifs WHERE idcamion='{camionId}' AND etiquette IS NOT NULL;".format(camionId=camionId))
             with open('/home/grdf/logs/log', 'a') as log:
-                print >> log, '{}-{}-{}  {}h --- {} --- DELETE'.format(nw.year, nw.month, nw.day, nw.hour, camion)
+                print >> log, '{}-{}-{}  {}h --- {} --- DELETE'.format(nw.year, nw.month, nw.day, nw.hour, camionId)
 
         except:
             pass
