@@ -21,7 +21,7 @@ bdd = 'grdf'
 host = 'localhost'
 user = 'grdf'
 password = 'grdf'
-suffix = 7						# Taille des caractères reservés au suffixe outil
+suffix = 8						# Taille des caractères reservés au suffixe outil
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
