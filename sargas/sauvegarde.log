@@ -1497,3 +1497,22 @@ Scan terminé, envoie des informations sur le brooker MQTT
 Delete contenu du camion
 terminé
 Fin du code
+
+--- Date 13/10/2019 13:00:04 ---
+--- Telechargement des modifs ---
+Already up-to-date.
+--- Lancement d'un scan ---
+--- Lancement de Wvdial ---
+--- Test de connection ---
+Tentative 0
+Online
+proceed with programm
+Initialisation du script
+Lancement du scan
+Début du scan
+Temps du scan en milisecondes : 10000
+Scan terminé, envoie des informations sur le brooker MQTT
+65 elements scanes
+Delete contenu du camion
+terminé
+Fin du code
