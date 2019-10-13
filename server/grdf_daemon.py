@@ -21,7 +21,7 @@ bdd = 'grdf'
 host = 'localhost'
 user = 'grdf'
 password = 'grdf'
-suffix = 7						# Taille des caractères reservés au suffixe outil
+suffix = 8						# Taille des caractères reservés au suffixe outil
 ## ----------------------------------------------------------------------------
 
 ### FONCTIONS -----------------------------------------------------------------
@@ -103,12 +103,16 @@ def fetchData(camion, etiId):
 """
     
 def deleteContent(camionId):
+    nw=datetime.datetime.now()
     con = False
     try:
         con = mdb.connect(host=host, user=user, passwd=password, db=bdd)
         cur = con.cursor()
         try:
             cur.execute("DELETE FROM effectifs WHERE idcamion='{camionId}' AND etiquette IS NOT NULL;".format(camionId=camionId))
+            with open('/home/grdf/logs/log', 'a') as log:
+                print >> log, '{}-{}-{}  {}h --- {} --- DELETE'.format(nw.year, nw.month, nw.day, nw.hour, camionId)
+
         except:
             pass
     except mdb.Error, e:
