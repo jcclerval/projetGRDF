@@ -1,0 +1,4 @@
+0 9-17/2 * * mon,tue,wed,thu,fri,sun /home/debian/ProjetGRDF/sargas/scan_execution$
+0 9-17/2 * * mon,tue,wed,thu,fri timeout 3600 autossh grdf -N >> /home/debian
+@reboot timeout 3600 /home/debian/ProjetGRDF/sargas/ssh_tunneling.sh
+
