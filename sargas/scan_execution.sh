@@ -25,8 +25,9 @@ while [ $i -le $max_count ]
 	do
 	echo "Tentative $i"
 	# Test de la connection internet
-	wget -q --tries=10 --timeout=20 --spider http://google.com
-	if [[ $? -eq 0 ]]; then
+	#wget -q --tries=10 --timeout=20 --spider 8.8.8.8
+	conn=`ping -q -w1 -c1 8.8.8.8 &>/dev/null && echo online || echo offline`
+	if [[ $conn = "online" ]]; then
 			echo "Online"
 			echo "proceed with programm"
 			python $path0'sargas/script.py' -f $path0 -c $idcamion
